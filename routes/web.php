@@ -51,8 +51,8 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/system/login', [LoginController::class, 'logout'])->name('fromLogin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('register/send-otp/sent_OTP', [UserController::class, 'sent_OTP']);
-Route::redirect('/home', '/')->name('home');
-Route::get('/', [ClientHomeController::class, 'index']);
+Route::redirect('/home', '/login')->name('home');
+Route::redirect('/', '/login');
 Route::get('/danh-muc/{code}', [ClientHomeController::class, 'category']);
 
 // Thiệp cưới online

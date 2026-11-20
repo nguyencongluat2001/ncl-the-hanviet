@@ -68,7 +68,7 @@
 @endsection
 
 <style>
-    .word-search-scroll { max-height: min(68vh, 760px); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
+    .word-search-scroll { overflow: visible; }
     .word-search-page-filter { display: grid; grid-template-columns: 145px minmax(200px, 320px) 42px; justify-content: end; gap: 8px; margin: 12px 0 18px; }
     .word-search-page-filter .form-control { height: 38px; min-width: 0; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px; }
     .word-search-page-button { height: 38px; margin: 0; padding: 0; border-radius: 10px; }
@@ -81,15 +81,17 @@
     .word-search-page-table td.word-search-hanzi { font-size: 35px !important; line-height: 1.2; -webkit-user-select: text; user-select: text; }
     .word-search-actions { white-space: nowrap; }
     .word-search-actions .btn { min-width: 30px; padding: 5px 8px; margin: 0 2px; border-radius: 8px; }
-    .word-search-page-table thead th { position: sticky; top: 0; z-index: 2; }
+    .word-search-page-table { display: block; }
+    .word-search-page-table thead { display: table; width: 100%; table-layout: fixed; }
+    .word-search-page-table tbody { display: block; max-height: min(62vh, 680px); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
+    .word-search-page-table tbody tr { display: table; width: 100%; table-layout: fixed; }
 
     @media (max-width: 575.98px) {
-        .word-search-scroll { max-height: 62vh; overflow-x: hidden; overflow-y: auto; padding-bottom: 2px; }
         .word-search-page-filter { grid-template-columns: 104px minmax(0, 1fr) 36px; gap: 5px; margin: 8px 0 12px; }
         .word-search-page-filter .form-control { height: 35px; padding: 6px 7px; font-size: 11px; }
         .word-search-page-button { width: 36px; height: 35px; font-size: 12px; }
         .word-search-page-table { display: block; border: 0; border-radius: 0; }
-        .word-search-page-table thead { position: sticky; top: 0; z-index: 3; display: block; margin-bottom: 7px; }
+        .word-search-page-table thead { display: block; margin-bottom: 7px; }
         .word-search-page-table thead tr,
         .word-search-page-table tbody .word-search-data-row {
             display: grid;
@@ -99,8 +101,8 @@
         .word-search-page-table thead tr { overflow: hidden; border: 1px solid #e3e9f0; border-radius: 9px; background: #edf2f7; }
         .word-search-page-table th { display: block; width: auto !important; min-width: 0; padding: 8px 2px; border: 0; border-right: 1px solid #e0e7ef; background: transparent; font-size: 9px; white-space: nowrap; overflow: hidden; }
         .word-search-page-table th:last-child { border-right: 0; }
-        .word-search-page-table tbody { display: block; }
-        .word-search-page-table tbody .word-search-data-row { margin-bottom: 9px; overflow: hidden; border: 1px solid #e3e9f0; border-radius: 11px; background: #fff; box-shadow: 0 2px 7px rgba(30, 50, 80, .06); }
+        .word-search-page-table tbody { display: block; max-height: 62vh; overflow-x: hidden; overflow-y: auto; padding-bottom: 2px; }
+        .word-search-page-table tbody .word-search-data-row { display: grid; margin-bottom: 9px; overflow: hidden; border: 1px solid #e3e9f0; border-radius: 11px; background: #fff; box-shadow: 0 2px 7px rgba(30, 50, 80, .06); }
         .word-search-page-table td { display: flex; min-width: 0; justify-content: center; align-items: center; padding: 9px 4px; border: 0; border-right: 1px solid #edf1f5; background: transparent; font-size: 13px; line-height: 1.25; }
         .word-search-page-table td::before { content: attr(data-label); display: none; }
         .word-search-page-table td.word-search-hanzi { font-size: 35px !important; }
