@@ -33,12 +33,6 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <p for="example-text-input" class="form-control-label required">Mã sản phẩm</p>
-                            <input class="form-control" type="text" value="{{!empty($data['code'])?$data['code']:''}}" name="code" id="code" placeholder="Nhập mã sản phẩm..." />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
                         <span class="col-md-3 control-label required">Chọn ảnh đại diện</span><br>
                         <label for="upload_image" class="label-upload">Chọn ảnh</label>
                         <input type="file" hidden name="upload_image" id="upload_image" onchange="readURL(this)">

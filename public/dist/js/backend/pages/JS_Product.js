@@ -105,7 +105,6 @@ JS_Product.prototype.store = function (oFormCreate) {
     });
     formdata.append('_token', $("#_token").val());
     formdata.append('id', $("#id").val());
-    formdata.append('code', $("#code").val());
     formdata.append('name', $("#name").val());
     formdata.append('code_category', $("#code_category").val());
     formdata.append('trademark', $("#trademark").val());
@@ -416,11 +415,6 @@ JS_Product.prototype.checkValidate = function(){
     if($.trim($("#name").val() || '') == ''){
         NclLib.alertMessageBackend('warning', 'Cảnh báo', 'Tên sản phẩm không được để trống!');
         $("#name").focus();
-        return false;
-    }
-    if(!CKEDITOR.instances.decision || $.trim(CKEDITOR.instances.decision.getData()) == ''){
-        NclLib.alertMessageBackend('warning', 'Cảnh báo', 'Nội dung không được để trống!');
-        $("#decision").focus();
         return false;
     }
     return true;

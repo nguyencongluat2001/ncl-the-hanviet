@@ -59,7 +59,6 @@ class ProductService extends Service
             // array data users
             $arrProduct = [
                 'user_id' => $_SESSION['id'],
-                'code' => $input['code'],
                 'name' => $input['name'],
                 'code_category' => $input['code_category'],
                 'trademark' => $input['trademark'],
