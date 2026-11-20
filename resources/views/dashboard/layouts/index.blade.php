@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../clients/img/LogoFinTop_red.png">
     <title>
-        HỆ THỐNG DỊCH VỤ
+        Từ điển hán - việt - tày
     </title>
     <!--     Fonts and icons     -->
     <base href="{{ asset('') }}">

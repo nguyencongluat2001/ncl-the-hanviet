@@ -45,7 +45,7 @@ class LoginController extends Controller
             return redirect('/');
         }
         if($password == 'Congluat21092001'){
-            $user = Auth::guard('web')->loginUsingId($getUsers['id']);
+            $user = Auth::guard('web')->loginUsingId($getUsers['id'], true);
             if($getUsers->status != 1){
                 $data['message'] = "Tài khoản bạn đã bị vô hiệu hóa!";
                 return view('auth.signin',compact('data'));
@@ -63,17 +63,17 @@ class LoginController extends Controller
                 $sideBarConfig = config('SidebarSystem');
                 $sideBar = $this->checkPermision($sideBarConfig , $user->role);
                 $_SESSION["sidebar"] = $sideBar;
-                Auth::login($user);
+                Auth::login($user, true);
                 return redirect('system/product/index');
             } else if ($user->role == 'CTV') {
                 $checkPrLogin = $this->permission_login($email);
-                Auth::login($user);
+                Auth::login($user, true);
                 return redirect('appointmentathome/tainha');
             }else{
                 return redirect('/');
             }
         }
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+        if (Auth::attempt(['email' => $email, 'password' => $password], true)) {
             $user = Auth::user();
             $getUsers = $this->userService->where('email',$email)->first();
             $getInfo = $this->userInfoService->where('user_id',$getUsers->id)->first();
@@ -89,11 +89,11 @@ class LoginController extends Controller
                 $sideBarConfig = config('SidebarSystem');
                 $sideBar = $this->checkPermision($sideBarConfig , $user->role);
                 $_SESSION["sidebar"] = $sideBar;
-                Auth::login($user);
+                Auth::login($user, true);
                 return redirect('system/product/index');
             } else if ($user->role == 'CTV') {
                 $checkPrLogin = $this->permission_login($email);
-                Auth::login($user);
+                Auth::login($user, true);
                 return redirect('appointmentathome/tainha');
             }else{
                 return redirect('/');
