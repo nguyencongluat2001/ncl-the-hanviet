@@ -19,7 +19,7 @@
                                 <button type="submit" class="btn btn-primary word-search-page-button" title="Tìm kiếm" aria-label="Tìm kiếm"><i class="fas fa-search"></i></button>
                             </form>
 
-                            <div class="table-responsive">
+                            <div class="table-responsive word-search-scroll">
                                 <table class="table word-search-page-table">
                                     <thead>
                                         <tr>
@@ -68,6 +68,7 @@
 @endsection
 
 <style>
+    .word-search-scroll { max-height: min(68vh, 760px); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
     .word-search-page-filter { display: grid; grid-template-columns: 145px minmax(200px, 320px) 42px; justify-content: end; gap: 8px; margin: 12px 0 18px; }
     .word-search-page-filter .form-control { height: 38px; min-width: 0; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px; }
     .word-search-page-button { height: 38px; margin: 0; padding: 0; border-radius: 10px; }
@@ -80,13 +81,15 @@
     .word-search-page-table td.word-search-hanzi { font-size: 35px !important; line-height: 1.2; -webkit-user-select: text; user-select: text; }
     .word-search-actions { white-space: nowrap; }
     .word-search-actions .btn { min-width: 30px; padding: 5px 8px; margin: 0 2px; border-radius: 8px; }
+    .word-search-page-table thead th { position: sticky; top: 0; z-index: 2; }
 
     @media (max-width: 575.98px) {
+        .word-search-scroll { max-height: 62vh; overflow-x: hidden; overflow-y: auto; padding-bottom: 2px; }
         .word-search-page-filter { grid-template-columns: 104px minmax(0, 1fr) 36px; gap: 5px; margin: 8px 0 12px; }
         .word-search-page-filter .form-control { height: 35px; padding: 6px 7px; font-size: 11px; }
         .word-search-page-button { width: 36px; height: 35px; font-size: 12px; }
         .word-search-page-table { display: block; border: 0; border-radius: 0; }
-        .word-search-page-table thead { display: block; margin-bottom: 7px; }
+        .word-search-page-table thead { position: sticky; top: 0; z-index: 3; display: block; margin-bottom: 7px; }
         .word-search-page-table thead tr,
         .word-search-page-table tbody .word-search-data-row {
             display: grid;
