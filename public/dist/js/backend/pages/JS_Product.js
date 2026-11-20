@@ -6,6 +6,87 @@ function JS_Product(baseUrl, module, controller) {
     this.urlPath = baseUrl + '/' + module + '/' + controller;
 }
 
+JS_Product.prototype.previewProductImage = function (button) {
+    var imageUrl = $(button).attr('data-image');
+    var title = $(button).attr('data-title') || 'Ảnh sản phẩm';
+    if (!imageUrl) return;
+
+    $('#productImageTitle').text(title);
+    $('#productImagePreview').attr('src', imageUrl).attr('alt', title);
+    this.resetProductImageZoom();
+    this.bindProductImageZoomGestures();
+    $('#productImageModal').modal('show');
+};
+
+JS_Product.prototype.closeProductImageModal = function () {
+    $('#productImageModal').modal('hide');
+};
+
+JS_Product.prototype.printWordList = function () {
+    window.print();
+};
+
+JS_Product.prototype.zoomProductImage = function (direction) {
+    var zoom = parseFloat($('#productImagePreview').attr('data-zoom') || '1');
+    this.setProductImageZoom(zoom + (direction > 0 ? 0.1 : -0.1));
+};
+
+JS_Product.prototype.setProductImageZoom = function (zoom) {
+    zoom = Math.max(1, Math.min(4, parseFloat(zoom) || 1));
+    var image = $('#productImagePreview');
+    image.attr('data-zoom', zoom);
+    image.css({
+        width: zoom > 1 ? (zoom * 100) + '%' : 'auto',
+        maxWidth: zoom > 1 ? 'none' : '100%',
+        maxHeight: zoom > 1 ? 'none' : '82vh',
+        transform: 'none'
+    });
+    $('#productImageZoomRange').val(Math.round(zoom * 100));
+    $('#productImageZoomLabel').text(Math.round(zoom * 100) + '%');
+};
+
+JS_Product.prototype.resetProductImageZoom = function () {
+    this.setProductImageZoom(1);
+    $('.product-image-viewport').scrollTop(0).scrollLeft(0);
+};
+
+JS_Product.prototype.bindProductImageZoomGestures = function () {
+    var viewport = document.querySelector('.product-image-viewport');
+    if (!viewport || viewport.dataset.zoomGesturesBound) return;
+    viewport.dataset.zoomGesturesBound = 'true';
+
+    var pinchDistance = 0;
+    viewport.addEventListener('wheel', function (event) {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        var currentZoom = parseFloat($('#productImagePreview').attr('data-zoom') || '1');
+        window.JS_Product.setProductImageZoom(currentZoom + (event.deltaY < 0 ? 0.05 : -0.05));
+    }, { passive: false });
+
+    viewport.addEventListener('touchstart', function (event) {
+        if (event.touches.length === 2) {
+            var dx = event.touches[0].clientX - event.touches[1].clientX;
+            var dy = event.touches[0].clientY - event.touches[1].clientY;
+            pinchDistance = Math.hypot(dx, dy);
+        }
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (event) {
+        if (event.touches.length !== 2 || !pinchDistance) return;
+        event.preventDefault();
+        var dx = event.touches[0].clientX - event.touches[1].clientX;
+        var dy = event.touches[0].clientY - event.touches[1].clientY;
+        var nextDistance = Math.hypot(dx, dy);
+        var currentZoom = parseFloat($('#productImagePreview').attr('data-zoom') || '1');
+        window.JS_Product.setProductImageZoom(currentZoom * (nextDistance / pinchDistance));
+        pinchDistance = nextDistance;
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', function (event) {
+        if (event.touches.length < 2) pinchDistance = 0;
+    }, { passive: true });
+};
+
 /**
  * Hàm load các sử kiện cho màn hình index
  *
@@ -24,9 +105,6 @@ JS_Product.prototype.loadIndex = function () {
     $('form#frmAdd').find('#btn_create').click(function () {
         myClass.store('form#frmAdd');
     })
-    $(oForm).find('#btn_edit').click(function () {
-        myClass.edit(oForm);
-    });
      // form load
      $(oForm).find('#category').change(function () {
         var page = $(oForm).find('#limit').val();
@@ -39,10 +117,6 @@ JS_Product.prototype.loadIndex = function () {
             myClass.loadList(oForm, page, perPage);
             // return false;
         
-    });
-    // Xoa doi tuong
-    $(oForm).find('#btn_delete').click(function () {
-        myClass.delete(oForm)
     });
 }
 JS_Product.prototype.loadevent = function (oForm) {
@@ -230,6 +304,30 @@ JS_Product.prototype.edit = function (oForm) {
         }
     });
 }
+
+// Open edit/delete actions directly from a product row.
+JS_Product.prototype.selectProductRow = function (productId) {
+    var selected = false;
+    $('#table-data').find('input[name="chk_item_id"]').each(function () {
+        var isTarget = String($(this).val()) === String(productId);
+        $(this).prop('checked', isTarget);
+        selected = selected || isTarget;
+    });
+    return selected;
+};
+
+JS_Product.prototype.editOne = function (oForm, productId) {
+    if (this.selectProductRow(productId)) {
+        this.edit(oForm);
+    }
+};
+
+JS_Product.prototype.deleteOne = function (oForm, productId) {
+    if (this.selectProductRow(productId)) {
+        this.delete(oForm);
+    }
+};
+
 // Xoa bài viết
 JS_Product.prototype.delete = function (oForm) {
     var myClass = this;
@@ -413,7 +511,7 @@ JS_Product.prototype.checkValidate = function(){
         return false;
     }
     if($.trim($("#name").val() || '') == ''){
-        NclLib.alertMessageBackend('warning', 'Cảnh báo', 'Tên sản phẩm không được để trống!');
+        NclLib.alertMessageBackend('warning', 'Cảnh báo', 'Tên không được để trống!');
         $("#name").focus();
         return false;
     }

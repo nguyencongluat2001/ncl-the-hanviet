@@ -28,8 +28,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <p for="example-text-input" class="form-control-label required">Tên sản phẩm </p>
-                            <input class="form-control" type="text" value="{{!empty($data['name'])?$data['name']:''}}" name="name" id="name" placeholder="Nhập tên sản phẩm..." />
+                            <p for="example-text-input" class="form-control-label required">Tên </p>
+                            <input class="form-control" type="text" value="{{!empty($data['name'])?$data['name']:''}}" name="name" id="name" placeholder="Nhập Tên..." />
                         </div>
                     </div>
                     <div class="col-md-6">

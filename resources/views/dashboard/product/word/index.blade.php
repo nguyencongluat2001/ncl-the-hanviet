@@ -5,7 +5,10 @@
             <button type="button" class="btn btn-sm btn-light" onclick="JS_Product.closeWords()" aria-label="Đóng">×</button>
         </div>
         <div class="modal-body">
-            <div class="d-flex justify-content-end mb-3">
+            <div class="word-list-toolbar d-flex justify-content-end mb-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm word-print-button" onclick="JS_Product.printWordList()" title="In danh sách chữ">
+                    <i class="fas fa-print"></i> In danh sách
+                </button>
                 <button type="button" class="btn btn-success btn-sm" onclick="JS_Product.wordForm('{{ $product->id }}')">
                     <i class="fas fa-plus"></i> Thêm chữ
                 </button>
@@ -61,6 +64,7 @@
 .word-list-modal .modal-header .btn { min-width: 34px; min-height: 32px; padding: 4px 9px; }
 .word-list-modal .modal-body { min-height: 0; overflow: hidden; padding: 10px 14px 12px; }
 .word-list-modal .btn-success { border-radius: 8px; padding: 6px 11px; }
+    .word-list-toolbar { gap: 7px; }
 .word-list-modal .modal-body > .d-flex { margin-bottom: 7px !important; }
 .word-filter-form { display: grid; grid-template-columns: 135px minmax(180px, 1fr) 38px; gap: 6px; max-width: 500px; margin: 0 0 8px auto; }
 .word-filter-form .form-control { min-width: 0; height: 34px; padding: 5px 9px; border-color: #e2e8f0; border-radius: 8px; font-size: 12px; }
@@ -92,13 +96,13 @@
         .word-list-modal .modal-header { padding: 7px 10px; }
         .word-list-modal .modal-title { font-size: 14px; }
         .word-list-modal .modal-header .btn { min-width: 30px; min-height: 28px; padding: 2px 7px; }
-        .word-list-modal .modal-body { padding: 7px 8px 9px; background: #f8fafc; }
+        .word-list-modal .modal-body { padding: 7px 8px calc(18px + env(safe-area-inset-bottom)); background: #f8fafc; }
         .word-list-modal .modal-body > .d-flex { margin-bottom: 5px !important; }
         .word-list-modal .btn-success { padding: 5px 9px; font-size: 11px; }
         .word-filter-form { grid-template-columns: 92px minmax(0, 1fr) 32px; gap: 4px; width: 100%; max-width: none; margin-bottom: 6px; }
         .word-filter-form .form-control { height: 31px; padding: 4px 6px; font-size: 10px; }
         .word-search-button { width: 32px; height: 31px; font-size: 11px; }
-        .word-list-table tbody { max-height: calc(94dvh - 170px); }
+        .word-list-table tbody { max-height: calc(94dvh - 170px); padding-bottom: calc(32px + env(safe-area-inset-bottom)); scroll-padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
         .word-list-table { display: block; border: 0; border-radius: 0; margin-bottom: 0; }
         .word-list-table thead { display: block; width: 100%; margin-bottom: 7px; }
         .word-list-table thead tr {
@@ -129,7 +133,7 @@
         .word-list-table thead th:last-child { border-right: 0; }
         .word-desktop-heading { display: none; }
         .word-mobile-heading { display: inline; }
-        .word-list-table tbody { display: block; width: 100%; max-height: 62vh; overflow-x: hidden; overflow-y: auto; }
+        .word-list-table tbody { display: block; width: 100%; max-height: 62vh; padding-bottom: calc(32px + env(safe-area-inset-bottom)); scroll-padding-bottom: calc(32px + env(safe-area-inset-bottom)); overflow-x: hidden; overflow-y: auto; }
         .word-list-table tbody .word-data-row {
             display: grid;
             grid-template-columns: 38px repeat(3, minmax(0, 1fr)) 42px;
@@ -190,5 +194,33 @@
             line-height: 1;
         }
         .word-list-table .word-empty-cell { display: block; padding: 14px 8px; border: 1px solid #e3e9f0; border-radius: 10px; }
+    }
+
+    @media print {
+        @page { margin: 12mm; }
+        body * { visibility: hidden !important; }
+        #wordsmodal, #wordsmodal * { visibility: visible !important; }
+        body { background: #fff !important; }
+        #wordsmodal { position: absolute !important; inset: 0 !important; display: block !important; width: 100% !important; height: auto !important; margin: 0 !important; overflow: visible !important; opacity: 1 !important; background: #fff !important; }
+        #wordsmodal .word-list-dialog { width: 100% !important; max-width: none !important; margin: 0 !important; transform: none !important; }
+        #wordsmodal .word-list-modal { max-height: none !important; overflow: visible !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+        #wordsmodal .word-list-modal .modal-header { padding: 0 0 10px !important; }
+        #wordsmodal .word-list-modal .modal-header button,
+        #wordsmodal .word-list-toolbar,
+        #wordsmodal .word-filter-form,
+        #wordsmodal .word-actions-column,
+        #wordsmodal .word-actions-cell,
+        .modal-backdrop { display: none !important; }
+        #wordsmodal .word-list-modal .modal-body { padding: 0 !important; overflow: visible !important; }
+        #wordsmodal .word-list-table,
+        #wordsmodal .word-list-table thead,
+        #wordsmodal .word-list-table tbody { display: table !important; width: 100% !important; max-height: none !important; overflow: visible !important; table-layout: auto !important; }
+        #wordsmodal .word-list-table tbody tr { display: table-row !important; width: 100% !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; }
+        #wordsmodal .word-list-table tbody td { display: table-cell !important; padding: 8px !important; border-bottom: 1px solid #999 !important; background: #fff !important; color: #111 !important; }
+        #wordsmodal .word-list-table thead th.word-actions-column,
+        #wordsmodal .word-list-table tbody td.word-actions-cell { display: none !important; }
+        #wordsmodal .word-list-table thead th { background: #eee !important; color: #111 !important; }
+        #wordsmodal .word-list-table .word-mobile-heading { display: none !important; }
+        #wordsmodal .word-list-table .word-desktop-heading { display: inline !important; }
     }
 </style>
