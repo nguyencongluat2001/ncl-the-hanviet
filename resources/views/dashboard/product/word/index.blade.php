@@ -38,8 +38,8 @@
                                 <td class="text-center word-language-cell word-copyable" data-label="Quan hỏa">{{ $detail->name_quan_hoa }}</td>
                                 <td class="text-center word-language-cell word-copyable" data-label="Hán Việt">{{ $detail->name_han_viet }}</td>
                                 <td class="text-center word-actions-cell" data-label="Thao tác">
-                                    <button type="button" class="btn btn-warning btn-sm word-action-button" onclick="JS_Product.wordForm('{{ $product->id }}', '{{ $detail->id }}')" title="Sửa"><i class="far fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger btn-sm word-action-button" onclick="JS_Product.deleteWord('{{ $product->id }}', '{{ $detail->id }}')" title="Xóa"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="button" class="word-icon-action" onclick="JS_Product.wordForm('{{ $product->id }}', '{{ $detail->id }}')" title="Sửa" aria-label="Sửa"><i class="far fa-edit"></i></button>
+                                    <button type="button" class="word-icon-action" onclick="JS_Product.deleteWord('{{ $product->id }}', '{{ $detail->id }}')" title="Xóa" aria-label="Xóa"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @empty
@@ -55,17 +55,20 @@
 <style>
     .word-list-dialog { max-width: 1050px; }
     .word-list-modal { overflow: hidden; border: 0; border-radius: 16px; box-shadow: 0 20px 55px rgba(15, 23, 42, .18); }
-    .word-list-modal .modal-header { padding: 20px 24px; border-bottom: 1px solid #edf0f4; }
-    .word-list-modal .modal-title { color: #263754; font-size: 20px; font-weight: 650; }
-    .word-list-modal .modal-body { padding: 20px 24px 24px; }
-    .word-list-modal .btn-success { border-radius: 9px; padding: 8px 14px; }
-    .word-filter-form { display: grid; grid-template-columns: 145px minmax(180px, 1fr) 42px; gap: 8px; max-width: 520px; margin: 0 0 14px auto; }
-    .word-filter-form .form-control { min-width: 0; height: 38px; border-color: #e2e8f0; border-radius: 9px; font-size: 13px; }
-    .word-search-button { height: 38px; margin: 0; padding: 0; border-radius: 9px; }
+.word-list-modal { max-height: 92vh; display: flex; flex-direction: column; }
+.word-list-modal .modal-header { flex: 0 0 auto; padding: 10px 16px; border-bottom: 1px solid #edf0f4; }
+.word-list-modal .modal-title { color: #263754; font-size: 17px; font-weight: 650; }
+.word-list-modal .modal-header .btn { min-width: 34px; min-height: 32px; padding: 4px 9px; }
+.word-list-modal .modal-body { min-height: 0; overflow: hidden; padding: 10px 14px 12px; }
+.word-list-modal .btn-success { border-radius: 8px; padding: 6px 11px; }
+.word-list-modal .modal-body > .d-flex { margin-bottom: 7px !important; }
+.word-filter-form { display: grid; grid-template-columns: 135px minmax(180px, 1fr) 38px; gap: 6px; max-width: 500px; margin: 0 0 8px auto; }
+.word-filter-form .form-control { min-width: 0; height: 34px; padding: 5px 9px; border-color: #e2e8f0; border-radius: 8px; font-size: 12px; }
+.word-search-button { height: 34px; margin: 0; padding: 0; border-radius: 8px; }
     .word-list-modal .table-responsive { overflow: visible; }
     .word-list-table { display: block; width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; border: 1px solid #e6ebf1; border-radius: 12px; overflow: hidden; }
     .word-list-table thead { display: table; width: 100%; table-layout: fixed; }
-    .word-list-table tbody { display: block; width: 100%; max-height: min(62vh, 620px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
+.word-list-table tbody { display: block; width: 100%; max-height: min(70vh, 720px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
     .word-list-table tbody tr { display: table; width: 100%; table-layout: fixed; }
     .word-list-table th, .word-list-table td { vertical-align: middle; overflow-wrap: anywhere; }
     .word-list-table thead th { padding: 12px 8px; background: #f3f6fa; color: #53627a; border: 0; border-bottom: 1px solid #e6ebf1; font-size: 12px; font-weight: 650; }
@@ -78,21 +81,24 @@
     .word-language-cell { font-size: 16px; }
     .word-copyable { -webkit-user-select: text !important; user-select: text !important; -webkit-touch-callout: default; cursor: text; }
     .word-actions-cell { white-space: nowrap; }
-    .word-action-button { min-width: 30px; padding: 6px 8px; margin: 0 2px; border-radius: 8px; }
+    .word-icon-action { display: inline-flex; width: 28px; height: 30px; align-items: center; justify-content: center; padding: 0; margin: 0 2px; border: 0; border-radius: 0; background: transparent; color: #111827; font-size: 17px; cursor: pointer; box-shadow: none; }
+    .word-icon-action:hover, .word-icon-action:focus { background: transparent; color: #000; outline: none; opacity: .7; }
     .word-mobile-heading { display: none; }
 
     @media (max-width: 575.98px) {
         .word-list-dialog { width: calc(100% - 12px); max-width: none; margin: 6px auto; }
         .word-list-modal { border-radius: 14px; }
-        .word-list-modal .modal-header { padding: 14px 15px; }
-        .word-list-modal .modal-title { font-size: 16px; }
-        .word-list-modal .modal-body { padding: 12px 10px 14px; background: #f8fafc; }
-        .word-list-modal .modal-body > .d-flex { margin-bottom: 12px !important; }
-        .word-list-modal .btn-success { padding: 7px 12px; font-size: 12px; }
-        .word-filter-form { grid-template-columns: 104px minmax(0, 1fr) 36px; gap: 5px; width: 100%; max-width: none; margin-bottom: 11px; }
-        .word-filter-form .form-control { height: 35px; padding: 6px 7px; font-size: 11px; }
-        .word-search-button { width: 36px; height: 35px; font-size: 12px; }
-        .word-list-table tbody { max-height: 62vh; }
+        .word-list-modal { max-height: 94dvh; border-radius: 12px; }
+        .word-list-modal .modal-header { padding: 7px 10px; }
+        .word-list-modal .modal-title { font-size: 14px; }
+        .word-list-modal .modal-header .btn { min-width: 30px; min-height: 28px; padding: 2px 7px; }
+        .word-list-modal .modal-body { padding: 7px 8px 9px; background: #f8fafc; }
+        .word-list-modal .modal-body > .d-flex { margin-bottom: 5px !important; }
+        .word-list-modal .btn-success { padding: 5px 9px; font-size: 11px; }
+        .word-filter-form { grid-template-columns: 92px minmax(0, 1fr) 32px; gap: 4px; width: 100%; max-width: none; margin-bottom: 6px; }
+        .word-filter-form .form-control { height: 31px; padding: 4px 6px; font-size: 10px; }
+        .word-search-button { width: 32px; height: 31px; font-size: 11px; }
+        .word-list-table tbody { max-height: calc(94dvh - 170px); }
         .word-list-table { display: block; border: 0; border-radius: 0; margin-bottom: 0; }
         .word-list-table thead { display: block; width: 100%; margin-bottom: 7px; }
         .word-list-table thead tr {
@@ -100,9 +106,9 @@
             grid-template-columns: 38px repeat(3, minmax(0, 1fr)) 42px;
             width: 100%;
             overflow: hidden;
-            border: 1px solid #e3e9f0;
+            border: 1px solid #cbd6e3;
             border-radius: 9px;
-            background: #edf2f7;
+            background: #dce5f0;
         }
         .word-list-table thead th {
             display: block;
@@ -110,15 +116,15 @@
             min-width: 0;
             padding: 8px 2px;
             background: transparent;
-            color: #526177;
-            font-size: 9px;
+            color: #34445c;
+            font-size: 10px;
             font-weight: 700;
             line-height: 1.15;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: clip;
             border: 0;
-            border-right: 1px solid #e0e7ef;
+            border-right: 1px solid #cbd6e3;
         }
         .word-list-table thead th:last-child { border-right: 0; }
         .word-desktop-heading { display: none; }
@@ -129,7 +135,7 @@
             grid-template-columns: 38px repeat(3, minmax(0, 1fr)) 42px;
             width: 100%;
             margin-bottom: 9px;
-            border: 1px solid #e3e9f0;
+            border: 1px solid #cbd6e3;
             border-radius: 11px;
             overflow: hidden;
             background: #fff;
@@ -145,7 +151,7 @@
             border-right: 1px solid #edf1f5;
             background: transparent !important;
             color: #263449;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.25;
         }
         .word-list-table tbody td::before {
@@ -163,9 +169,9 @@
         .word-list-table tbody .word-language-cell::before {
             display: none;
         }
-        .word-list-table .word-order-cell { width: auto; color: #526177; font-size: 12px; }
+        .word-list-table .word-order-cell { width: auto; color: #43536a; font-size: 13px; }
         .word-list-table .word-hanzi-cell { font-size: 35px; }
-        .word-list-table .word-language-cell { font-size: 14px; font-weight: 500; }
+        .word-list-table .word-language-cell { font-size: 15px; font-weight: 500; }
         .word-list-table .word-actions-cell {
             width: auto;
             flex-direction: row;
@@ -176,15 +182,12 @@
             border-right: 0;
         }
         .word-list-table .word-actions-cell::before { display: none; }
-        .word-list-table .word-action-button {
-            min-width: 24px;
+        .word-list-table .word-icon-action {
             width: 24px;
             height: 24px;
-            padding: 2px;
             margin: 0;
-            font-size: 10px;
+            font-size: 15px;
             line-height: 1;
-            border-radius: 7px;
         }
         .word-list-table .word-empty-cell { display: block; padding: 14px 8px; border: 1px solid #e3e9f0; border-radius: 10px; }
     }

@@ -38,7 +38,7 @@
                                                 <td data-label="Quan hỏa">{{ $detail->name_quan_hoa }}</td>
                                                 <td data-label="Hán Việt">{{ $detail->name_han_viet }}</td>
                                                 <td class="word-search-actions" data-label="Thao Tác">
-                                                    <button type="button" class="btn btn-primary btn-sm" onclick="JS_Product.wordForm('{{ $detail->product_id }}', '{{ $detail->id }}')" title="Sửa"><i class="far fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-warning btn-sm" onclick="JS_Product.wordForm('{{ $detail->product_id }}', '{{ $detail->id }}')" title="Sửa"><i class="far fa-edit"></i></button>
                                                     <button type="button" class="btn btn-danger btn-sm" onclick="JS_Product.deleteWord('{{ $detail->product_id }}', '{{ $detail->id }}')" title="Xóa"><i class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
