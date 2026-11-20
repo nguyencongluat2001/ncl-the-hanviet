@@ -1,0 +1,41 @@
+services:
+  #Nginx Service
+  hanviet_system_nginx:
+    container_name: hanviet_system_nginx
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - .:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./storage/nginx/log:/var/log/nginx
+    ports:
+      - "8888:80"
+    depends_on:
+      - hanviet_system_php
+  #Php Service
+  hanviet_system_php:
+    container_name: hanviet_system_php
+    build:
+      context: ./docker/php
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+    depends_on:
+      - hanviet_system_mysql
+  #MySQL Service
+  hanviet_system_mysql:
+    container_name: hanviet_system_mysql
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wedding
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - hanviet_mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+volumes:
+  hanviet_mysql_data:
