@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
-    <title>Công Luật &amp; Kim Ngân Wedding</title>
-    <meta name="description" content="Công Luật &amp; Kim Ngân - Our wedding date: 2024-11-24 ">
-    <meta name="keywords" content="Wedding, Wedding website, Website đám cưới, Tạo website đám cưới miễn phí">
+    <title>Hán Việt</title>
+    <meta name="description" content="Hán Việt ">
+    <meta name="keywords" content="Hán Việt">
     <meta name="format-detection" content="telephone=no">
     <meta name="application-name" content="iWedding">
     <meta name="author" content="Biihappy.com">
-    <meta property="og:site_name" content="Công Luật &amp; Kim Ngân">
+    <meta property="og:site_name" content="Hán Việt">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Công Luật &amp; Kim Ngân Wedding">
+    <meta property="og:title" content="Hán Việt Wedding">
     <meta property="og:url" content="http://weddingmarry.online:83/nha-trai">
-    <meta property="og:description" content="Công Luật &amp; Kim Ngân - Our wedding date: 2024-11-24 ">
+    <meta property="og:description" content="Hán Việt - Our wedding date: 2024-11-24 ">
     <meta property="og:image" content="http://weddingmarry.online:83/clients/assets/img/A2.jpg">
     <meta property="og:image:url" content="http://weddingmarry.online:83/clients/assets/img/A2.jpg">
     <meta property="og:image:secure_url" content="http://weddingmarry.online:83/clients/assets/img/A2.jpg">

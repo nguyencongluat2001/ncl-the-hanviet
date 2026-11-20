@@ -25,17 +25,17 @@ services:
     depends_on:
       - hanviet_system_mysql
   #MySQL Service
-  hanviet_system_mysql:
-    container_name: hanviet_system_mysql
-    image: mysql:8.4
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: wedding
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - hanviet_mysql_data:/var/lib/mysql
-    ports:
-      - "3307:3306"
+  # hanviet_system_mysql:
+  #   container_name: hanviet_system_mysql
+  #   image: mysql:8.4
+  #   restart: unless-stopped
+  #   environment:
+  #     MYSQL_DATABASE: wedding
+  #     MYSQL_ROOT_PASSWORD: root
+  #   volumes:
+  #     - hanviet_mysql_data:/var/lib/mysql
+  #   ports:
+  #     - "3307:3306"
 
 volumes:
   hanviet_mysql_data:

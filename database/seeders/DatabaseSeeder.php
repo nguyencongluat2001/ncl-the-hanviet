@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Faker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +19,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $faker = Faker\Factory::create();
         $item = [
             'id'=> (string)\Str::uuid(),
             'name' => 'Nguyễn Công Luật',
@@ -28,6 +26,8 @@ class DatabaseSeeder extends Seeder
             'password'=> Hash::make('123'),
             'role'=> 'ADMIN'
         ];
-        DB::table('users')->insert($item);
+        if (!DB::table('users')->where('email', $item['email'])->exists()) {
+            DB::table('users')->insert($item);
+        }
     }
 }
