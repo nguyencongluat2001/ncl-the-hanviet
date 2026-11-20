@@ -525,7 +525,7 @@ JS_Product.prototype.wordsList = function (productId, searchBy, searchText) {
         type: 'GET',
         data: {
             product_id: productId,
-            search_by: searchBy || 'name_chu_han',
+            search_by: searchBy || 'name_han_viet',
             search: searchText || ''
         },
         success: function (html) {

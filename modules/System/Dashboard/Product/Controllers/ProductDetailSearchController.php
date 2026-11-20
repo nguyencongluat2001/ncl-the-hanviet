@@ -15,7 +15,7 @@ class ProductDetailSearchController extends Controller
             'search' => ['nullable', 'string', 'max:255'],
         ]);
 
-        $searchBy = $filters['search_by'] ?? 'name_chu_han';
+        $searchBy = $filters['search_by'] ?? 'name_han_viet';
         $search = trim($filters['search'] ?? '');
         $query = ProductDetailModel::with('product');
 

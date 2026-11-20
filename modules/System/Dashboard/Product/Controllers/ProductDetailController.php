@@ -28,10 +28,10 @@ class ProductDetailController extends Controller
             'product' => $product,
             'details' => $this->detailService->listForProduct(
                 $product->id,
-                $filters['search_by'] ?? 'name_chu_han',
+                $filters['search_by'] ?? 'name_han_viet',
                 $filters['search'] ?? null
             ),
-            'searchBy' => $filters['search_by'] ?? 'name_chu_han',
+            'searchBy' => $filters['search_by'] ?? 'name_han_viet',
             'search' => $filters['search'] ?? '',
         ]);
     }
