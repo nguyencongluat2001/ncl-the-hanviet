@@ -63,6 +63,6 @@ use Modules\System\Dashboard\Blog\Models\BlogImagesModel;
     #table-data .product-row-action { width: 30px; height: 30px; margin: 2px; padding: 0; border: 0; border-radius: 7px; color: #202b3d; background: #f1f4f8; box-shadow: none; }
     #table-data .product-row-action:hover { background: #e2e8f0; }
     @media (max-width: 575.98px) {
-        #table-data .product-row-action { width: 25px; height: 25px; margin: 1px; font-size: 11px; }
+        #table-data .product-row-action { width: 36px; height: 36px; min-width: 36px; min-height: 36px; margin: 2px; font-size: 15px; border-radius: 8px; }
     }
 </style>
