@@ -10,7 +10,7 @@
                     <i class="fas fa-print"></i> In danh sách
                 </button>
                 <button type="button" class="btn btn-success btn-sm" onclick="JS_Product.wordForm('{{ $product->id }}')">
-                    <i class="fas fa-plus"></i> Thêm chữ
+                    <i class="fas fa-plus"></i> Thêm
                 </button>
             </div>
             <form class="word-filter-form" data-product-id="{{ $product->id }}" onsubmit="JS_Product.searchWords(); return false;">

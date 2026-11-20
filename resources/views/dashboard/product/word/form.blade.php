@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content card">
         <div class="modal-header">
-            <h5 class="modal-title">{{ $detail ? 'Sửa chữ' : 'Thêm chữ' }} — {{ $product->name }}</h5>
+            <h5 class="modal-title">{{ $detail ? 'Sửa' : 'Thêm' }} — {{ $product->name }}</h5>
             <button type="button" class="btn btn-sm btn-light" @if($returnToAll) onclick="JS_Product.closeWords()" @else onclick="JS_Product.wordsList('{{ $product->id }}')" @endif aria-label="Đóng">×</button>
         </div>
         <div class="modal-body">
