@@ -62,7 +62,11 @@
     .word-filter-form { display: grid; grid-template-columns: 145px minmax(180px, 1fr) 42px; gap: 8px; max-width: 520px; margin: 0 0 14px auto; }
     .word-filter-form .form-control { min-width: 0; height: 38px; border-color: #e2e8f0; border-radius: 9px; font-size: 13px; }
     .word-search-button { height: 38px; margin: 0; padding: 0; border-radius: 9px; }
-    .word-list-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; border: 1px solid #e6ebf1; border-radius: 12px; overflow: hidden; }
+    .word-list-modal .table-responsive { overflow: visible; }
+    .word-list-table { display: block; width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; border: 1px solid #e6ebf1; border-radius: 12px; overflow: hidden; }
+    .word-list-table thead { display: table; width: 100%; table-layout: fixed; }
+    .word-list-table tbody { display: block; width: 100%; max-height: min(62vh, 620px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
+    .word-list-table tbody tr { display: table; width: 100%; table-layout: fixed; }
     .word-list-table th, .word-list-table td { vertical-align: middle; overflow-wrap: anywhere; }
     .word-list-table thead th { padding: 12px 8px; background: #f3f6fa; color: #53627a; border: 0; border-bottom: 1px solid #e6ebf1; font-size: 12px; font-weight: 650; }
     .word-list-table tbody td { padding: 12px 8px; background: #fff !important; color: #263449; border: 0; border-bottom: 1px solid #edf1f5; }
@@ -88,7 +92,7 @@
         .word-filter-form { grid-template-columns: 104px minmax(0, 1fr) 36px; gap: 5px; width: 100%; max-width: none; margin-bottom: 11px; }
         .word-filter-form .form-control { height: 35px; padding: 6px 7px; font-size: 11px; }
         .word-search-button { width: 36px; height: 35px; font-size: 12px; }
-        .word-list-modal .table-responsive { overflow: visible; }
+        .word-list-table tbody { max-height: 62vh; }
         .word-list-table { display: block; border: 0; border-radius: 0; margin-bottom: 0; }
         .word-list-table thead { display: block; width: 100%; margin-bottom: 7px; }
         .word-list-table thead tr {
@@ -119,7 +123,7 @@
         .word-list-table thead th:last-child { border-right: 0; }
         .word-desktop-heading { display: none; }
         .word-mobile-heading { display: inline; }
-        .word-list-table tbody { display: block; width: 100%; }
+        .word-list-table tbody { display: block; width: 100%; max-height: 62vh; overflow-x: hidden; overflow-y: auto; }
         .word-list-table tbody .word-data-row {
             display: grid;
             grid-template-columns: 38px repeat(3, minmax(0, 1fr)) 42px;
