@@ -12,7 +12,7 @@
                             <form id="word-search-page-filter" class="word-search-page-filter" method="GET" action="{{ url('/system/urlsearch/index') }}">
                                 <select name="search_by" class="form-control" aria-label="Chọn cột để lọc">
                                     <option value="name_chu_han" @selected($searchBy === 'name_chu_han')>Chữ Hán</option>
-                                    <option value="name_quan_hoa" @selected($searchBy === 'name_quan_hoa')>Quan thoại</option>
+                                    <option value="name_quan_hoa" @selected($searchBy === 'name_quan_hoa')>Quan hỏa</option>
                                     <option value="name_han_viet" @selected($searchBy === 'name_han_viet')>Hán Việt</option>
                                 </select>
                                 <input name="search" class="form-control" type="search" value="{{ $search }}" placeholder="Nhập nội dung cần tìm..." aria-label="Nội dung cần tìm">
@@ -25,7 +25,7 @@
                                         <tr>
                                             <th class="word-search-order-column">Số thứ tự</th>
                                             <th>Chữ Hán</th>
-                                            <th>Quan Thoại</th>
+                                            <th>Quan hỏa</th>
                                             <th>Hán Việt</th>
                                             <th class="word-search-actions-column">Thao Tác</th>
                                         </tr>
@@ -35,7 +35,7 @@
                                             <tr class="word-search-data-row">
                                                 <td class="text-center" data-label="STT">{{ $detail->sort_order }}</td>
                                                 <td class="word-search-hanzi" data-label="Chữ Hán">{{ $detail->name_chu_han }}</td>
-                                                <td data-label="Quan Thoại">{{ $detail->name_quan_hoa }}</td>
+                                                <td data-label="Quan hỏa">{{ $detail->name_quan_hoa }}</td>
                                                 <td data-label="Hán Việt">{{ $detail->name_han_viet }}</td>
                                                 <td class="word-search-actions" data-label="Thao Tác">
                                                     <button type="button" class="btn btn-warning btn-sm" onclick="JS_Product.wordForm('{{ $detail->product_id }}', '{{ $detail->id }}')" title="Sửa"><i class="far fa-edit"></i></button>

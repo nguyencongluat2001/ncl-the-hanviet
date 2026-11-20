@@ -15,20 +15,16 @@
                         <input class="form-control" type="number" min="1" id="word_sort_order" name="sort_order" value="{{ $detail->sort_order ?? (($product->wordDetails()->max('sort_order') ?? 0) + 1) }}">
                     </div>
                     <div class="col-md-6 form-group mb-3">
-                        <label for="word_code">Mã</label>
-                        <input class="form-control" id="word_code" name="code" value="{{ $detail->code ?? '' }}">
-                    </div>
-                    <div class="col-md-6 form-group mb-3">
                         <label for="word_name_chu_han">Chữ Hán</label>
                         <input class="form-control" style="font-size:28px;" id="word_name_chu_han" name="name_chu_han" value="{{ $detail->name_chu_han ?? '' }}">
                     </div>
-                    <div class="col-md-6 form-group mb-3">
-                        <label for="word_name_han_viet">Tên Hán Việt</label>
-                        <input class="form-control" id="word_name_han_viet" name="name_han_viet" required value="{{ $detail->name_han_viet ?? '' }}">
+                     <div class="col-md-6 form-group mb-3">
+                        <label for="word_name_quan_hoa">Quan hỏa</label>
+                        <input class="form-control" id="word_name_quan_hoa" name="name_quan_hoa" value="{{ $detail->name_quan_hoa ?? '' }}">
                     </div>
                     <div class="col-md-6 form-group mb-3">
-                        <label for="word_name_quan_hoa">Tên Quan hỏa</label>
-                        <input class="form-control" id="word_name_quan_hoa" name="name_quan_hoa" value="{{ $detail->name_quan_hoa ?? '' }}">
+                        <label for="word_name_han_viet">Hán Việt</label>
+                        <input class="form-control" id="word_name_han_viet" name="name_han_viet" required value="{{ $detail->name_han_viet ?? '' }}">
                     </div>
                     <div class="col-md-6 form-group mb-3">
                         <label for="word_image">Ảnh (chọn một ảnh)</label>

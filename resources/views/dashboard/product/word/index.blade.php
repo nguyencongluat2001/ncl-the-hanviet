@@ -13,7 +13,7 @@
             <form class="word-filter-form" data-product-id="{{ $product->id }}" onsubmit="JS_Product.searchWords(); return false;">
                 <select id="word_search_by" class="form-control" aria-label="Chọn cột để lọc">
                     <option value="name_chu_han" @selected($searchBy === 'name_chu_han')>Chữ Hán</option>
-                    <option value="name_quan_hoa" @selected($searchBy === 'name_quan_hoa')>Quan thoại</option>
+                    <option value="name_quan_hoa" @selected($searchBy === 'name_quan_hoa')>Quan hỏa</option>
                     <option value="name_han_viet" @selected($searchBy === 'name_han_viet')>Hán Việt</option>
                 </select>
                 <input id="word_search_text" class="form-control" type="search" value="{{ $search }}" placeholder="Nhập nội dung cần tìm..." aria-label="Nội dung cần tìm">
@@ -25,7 +25,7 @@
                         <tr>
                             <th class="text-center word-order-column"><span class="word-desktop-heading">Số thứ tự</span><span class="word-mobile-heading">STT</span></th>
                             <th class="text-center"><span class="word-desktop-heading">Chữ Hán</span><span class="word-mobile-heading">Chữ Hán</span></th>
-                            <th class="text-center"><span class="word-desktop-heading">Quan thoại</span><span class="word-mobile-heading">Quan thoại</span></th>
+                            <th class="text-center"><span class="word-desktop-heading">Quan hỏa</span><span class="word-mobile-heading">Quan hỏa</span></th>
                             <th class="text-center"><span class="word-desktop-heading">Hán Việt</span><span class="word-mobile-heading">Hán Việt</span></th>
                             <th class="text-center word-actions-column"><span class="word-desktop-heading">Thao tác</span><span class="word-mobile-heading">#</span></th>
                         </tr>
@@ -35,7 +35,7 @@
                             <tr class="word-data-row">
                                 <td class="text-center word-order-cell" data-label="STT">{{ $detail->sort_order }}</td>
                                 <td class="text-center word-hanzi-cell word-copyable" data-label="Chữ Hán" style="font-size:35px; line-height:1.25;">{{ $detail->name_chu_han }}</td>
-                                <td class="text-center word-language-cell word-copyable" data-label="Quan thoại">{{ $detail->name_quan_hoa }}</td>
+                                <td class="text-center word-language-cell word-copyable" data-label="Quan hỏa">{{ $detail->name_quan_hoa }}</td>
                                 <td class="text-center word-language-cell word-copyable" data-label="Hán Việt">{{ $detail->name_han_viet }}</td>
                                 <td class="text-center word-actions-cell" data-label="Thao tác">
                                     <button type="button" class="btn btn-warning btn-sm word-action-button" onclick="JS_Product.wordForm('{{ $product->id }}', '{{ $detail->id }}')" title="Sửa"><i class="far fa-edit"></i></button>

@@ -36,7 +36,6 @@ class ProductDetailService extends Service
         $detail->fill([
             'id' => $detail->exists ? $detail->id : (string) Str::uuid(),
             'product_id' => $input['product_id'],
-            'code' => $input['code'] ?? null,
             'sort_order' => $input['sort_order'] ?? (ProductDetailModel::where('product_id', $input['product_id'])->max('sort_order') + 1),
             'name_chu_han' => $input['name_chu_han'] ?? null,
             'name_han_viet' => $input['name_han_viet'] ?? null,
@@ -44,6 +43,9 @@ class ProductDetailService extends Service
             'decision' => $input['decision'] ?? null,
             'created_at' => $detail->exists ? $detail->created_at : now(),
         ]);
+        if (array_key_exists('code', $input)) {
+            $detail->code = $input['code'];
+        }
         if ($imageName !== null) {
             $detail->image = $imageName;
         }
