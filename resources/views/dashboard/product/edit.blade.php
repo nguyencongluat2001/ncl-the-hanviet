@@ -229,7 +229,7 @@
                             for (var headingIndex = 0; headingIndex < 12; headingIndex++) {
                                 var headingCell = translationTable.$.rows[0].cells[headingIndex];
                                 var headingText = headingCell.textContent.trim().replace(/^\d+\s+/, '');
-                                if (headingCell.tagName.toLowerCase() === 'th' && (headingText === 'Chữ Hán' || headingText === 'Quan hỏa')) {
+                                if (headingCell.tagName.toLowerCase() === 'th' && (headingText === 'Chữ Hán' || headingText === 'Hán việt')) {
                                     headingCell.textContent = (6 - Math.floor(headingIndex / 2)) + ' ' + headingText;
                                 }
                             }
