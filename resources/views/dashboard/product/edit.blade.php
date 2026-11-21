@@ -255,6 +255,12 @@
                                     cells[cellIndex].style.lineHeight = '1.15';
                                     cells[cellIndex].style.padding = '5px 2px';
                                     cells[cellIndex].style.overflowWrap = 'anywhere';
+                                } else {
+                                    if (cellIndex % 2 === 0) {
+                                        cells[cellIndex].style.fontSize = '30px';
+                                        cells[cellIndex].style.backgroundColor = '#fff268';
+                                        cells[cellIndex].style.textAlign = 'center';
+                                    }
                                 }
                             }
                         }
@@ -279,7 +285,8 @@
                     for (var row = 0; row < 20; row++) {
                         table += '<tr>';
                         for (var column = 0; column < 12; column++) {
-                            table += '<td style="width:8.33%;height:54px;border:1px solid #555"><p>&nbsp;</p></td>';
+                            var hanStyle = column % 2 === 0 ? ';font-size:30px;background-color:#fff268;text-align:center' : '';
+                            table += '<td style="width:8.33%;height:54px;border:1px solid #555' + hanStyle + '"><p>&nbsp;</p></td>';
                         }
                         table += '</tr>';
                     }

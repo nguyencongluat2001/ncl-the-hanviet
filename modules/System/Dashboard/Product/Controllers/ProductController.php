@@ -163,6 +163,8 @@ class ProductController extends Controller
         if($param['category'] == '' || $param['category'] == null){
             unset($param['category']);
         }
+        $param['sort'] = 'created_at';
+        $param['sortType'] = 1;
         $objResult = $this->ProductService->filter($param);
         $data['datas']= $objResult;
         $data['canDeleteProducts'] = $this->canDeleteProducts();
