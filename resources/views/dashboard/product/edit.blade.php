@@ -197,8 +197,8 @@
         if (!infoTab) return;
         var rows = infoTab.get('txtRows');
         var columns = infoTab.get('txtCols');
-        if (rows) rows['default'] = 20;
-        if (columns) columns['default'] = 6;
+        if (rows) rows['default'] = 21;
+        if (columns) columns['default'] = 12;
     });
 
     CKEDITOR.replace('decision', {
@@ -212,10 +212,16 @@
                 editor.document.appendStyleText('table { border-collapse: collapse; } table td, table th { border: 1px solid #555 !important; }');
                 if (!body.getText().trim() && !body.findOne('table')) {
                     var table = '<table border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse;width:100%;table-layout:fixed;border:1px solid #555">';
-                    for (var row = 0; row < 15; row++) {
+                    table += '<thead><tr>';
+                    for (var headingColumn = 0; headingColumn < 12; headingColumn++) {
+                        var heading = headingColumn % 2 === 0 ? 'Chữ Hán' : 'Quan hỏa';
+                        table += '<th scope="col" style="width:8.33%;height:40px;border:1px solid #555;text-align:center;font-weight:bold">' + heading + '</th>';
+                    }
+                    table += '</tr></thead><tbody>';
+                    for (var row = 0; row < 20; row++) {
                         table += '<tr>';
-                        for (var column = 0; column < 6; column++) {
-                            table += '<td style="width:16.66%;height:36px;border:1px solid #555"><p>&nbsp;</p></td>';
+                        for (var column = 0; column < 12; column++) {
+                            table += '<td style="width:8.33%;height:54px;border:1px solid #555"><p>&nbsp;</p></td>';
                         }
                         table += '</tr>';
                     }

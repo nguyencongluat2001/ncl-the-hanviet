@@ -127,6 +127,8 @@ class ProductController extends Controller
      */
     public function delete(Request $request)
     {
+        abort_unless($this->canDeleteProducts(), 403, 'Bạn không có quyền xóa sản phẩm.');
+
         $input = $request->all();
         $this->ProductService->delete($input);
         
@@ -163,6 +165,18 @@ class ProductController extends Controller
         }
         $objResult = $this->ProductService->filter($param);
         $data['datas']= $objResult;
+        $data['canDeleteProducts'] = $this->canDeleteProducts();
         return view("dashboard.product.loadlist", $data)->render();
+    }
+
+    private function canDeleteProducts(): bool
+    {
+        $userId = $_SESSION['id'] ?? null;
+        if (!$userId) {
+            return false;
+        }
+
+        $email = $this->userService->where('id', $userId)->value('email');
+        return strtolower(trim((string) $email)) === 'nguyencongluat092001@gmail.com';
     }
 }
