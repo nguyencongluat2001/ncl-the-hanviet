@@ -262,7 +262,7 @@
                     table += '<thead><tr>';
                     for (var headingColumn = 0; headingColumn < 12; headingColumn++) {
                         var headingNumber = 6 - Math.floor(headingColumn / 2);
-                        var heading = headingNumber + ' ' + (headingColumn % 2 === 0 ? 'Chữ Hán' : 'Quan hỏa');
+                        var heading = headingNumber + ' ' + (headingColumn % 2 === 0 ? 'Chữ Hán' : 'Hán việt');
                         table += '<th scope="col" style="width:8.33%;height:40px;border:1px solid #555;text-align:center;font-weight:bold">' + heading + '</th>';
                     }
                     table += '</tr></thead><tbody>';
