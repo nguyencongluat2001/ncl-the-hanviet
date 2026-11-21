@@ -83,6 +83,11 @@
 </div>
 <style>
     .product-edit-layout { align-items: stretch; }
+    .product-edit-dialog { margin: 0 !important; }
+    .product-edit-dialog .cke_chrome { border: 0 !important; box-shadow: none !important; }
+    .product-edit-layout > .product-image-column,
+    .product-edit-layout > .product-info-column { padding-left: 0 !important; padding-right: 0 !important; }
+    .product-edit-layout .row > * { padding-left: 0 !important; padding-right: 0 !important; }
     .product-image-column { display: flex; }
     .product-image-panel { position: sticky; top: 12px; width: 100%; align-self: flex-start; }
     .product-image-panel .control-label { display: block; margin-bottom: 8px; }
@@ -215,20 +220,25 @@
             instanceReady: function(event) {
                 var editor = event.editor;
                 var body = editor.document.getBody();
-                editor.document.appendStyleText('table { border-collapse: collapse; } table td, table th { border: 1px solid #555 !important; } table th { white-space: nowrap; text-align: center; } @media screen and (max-width: 767px) { body { min-width: 1200px !important; overflow-x: auto !important; } table { width: 1200px !important; min-width: 1200px !important; max-width: none !important; table-layout: fixed !important; } table td, table th { min-width: 100px; } }');
+                editor.document.appendStyleText('body { margin: 0 !important; padding: 0 !important; } table { margin: 0 !important; border-collapse: collapse; } table td, table th { border: 1px solid #555 !important; } table th { white-space: nowrap; text-align: center; } @media screen and (max-width: 767px) { body { min-width: 1000px !important; overflow-x: auto !important; } table { width: 1000px !important; min-width: 1000px !important; max-width: none !important; table-layout: fixed !important; } table td, table th { min-width: 83px; } }');
                 function sizeTranslationTableForViewport() {
-                    var tables = editor.document.getBody().find('table');
+                    var editableBody = editor.document.getBody();
+                    var tables = editableBody.find('table');
                     var isMobile = window.matchMedia('(max-width: 767px)').matches;
+                    editableBody.setStyle('margin', '0');
+                    editableBody.setStyle('padding', '0');
                     for (var tableIndex = 0; tableIndex < tables.count(); tableIndex++) {
                         var translationTable = tables.getItem(tableIndex);
                         translationTable.setStyle('table-layout', 'fixed');
                         translationTable.setStyle('border-collapse', 'collapse');
-                        translationTable.setStyle('width', isMobile ? '1200px' : '100%');
-                        translationTable.setStyle('min-width', isMobile ? '1200px' : '0');
+                        translationTable.setStyle('border', '1px solid #555');
+                        translationTable.setStyle('margin', '0');
+                        translationTable.setStyle('width', isMobile ? '1000px' : '100%');
+                        translationTable.setStyle('min-width', isMobile ? '1000px' : '0');
                         if (translationTable.$.rows.length && translationTable.$.rows[0].cells.length === 12) {
                             for (var headingIndex = 0; headingIndex < 12; headingIndex++) {
                                 var headingCell = translationTable.$.rows[0].cells[headingIndex];
-                                var headingText = headingCell.textContent.trim().replace(/^\d+\s+/, '');
+                                var headingText = headingCell.textContent.trim().replace(/^\d+\s+/, '').replace('Quan hỏa', 'Hán việt');
                                 if (headingCell.tagName.toLowerCase() === 'th' && (headingText === 'Chữ Hán' || headingText === 'Hán việt')) {
                                     headingCell.textContent = (6 - Math.floor(headingIndex / 2)) + ' ' + headingText;
                                 }
@@ -237,8 +247,8 @@
                         for (var rowIndex = 0; rowIndex < translationTable.$.rows.length; rowIndex++) {
                             var cells = translationTable.$.rows[rowIndex].cells;
                             for (var cellIndex = 0; cellIndex < cells.length; cellIndex++) {
-                                cells[cellIndex].style.width = isMobile ? '100px' : (100 / 12) + '%';
-                                cells[cellIndex].style.minWidth = isMobile ? '100px' : '0';
+                                cells[cellIndex].style.width = isMobile ? '83px' : (100 / 12) + '%';
+                                cells[cellIndex].style.minWidth = isMobile ? '83px' : '0';
                                 if (cells[cellIndex].tagName.toLowerCase() === 'th') {
                                     cells[cellIndex].style.whiteSpace = isMobile ? 'nowrap' : 'normal';
                                     cells[cellIndex].style.fontSize = '12px';
@@ -249,8 +259,8 @@
                             }
                         }
                     }
-                    body.setStyle('min-width', isMobile ? '1200px' : '0');
-                    body.setStyle('overflow-x', 'auto');
+                    editableBody.setStyle('min-width', isMobile ? '1000px' : '0');
+                    editableBody.setStyle('overflow-x', 'auto');
                 }
                 editor.on('dataReady', sizeTranslationTableForViewport);
                 window.addEventListener('resize', sizeTranslationTableForViewport);
