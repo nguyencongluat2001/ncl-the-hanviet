@@ -11,7 +11,7 @@
                 <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="id" id="id" value="{{!empty($data['id'])?$data['id']:''}}">
                 <div class="row product-edit-layout">
-                    <div class="col-md-4 product-image-column">
+                    <div class="col-md-3 product-image-column">
                         <div class="product-image-panel">
                             <span class="control-label required">Chọn ảnh đại diện</span>
                             <label for="upload_image" class="label-upload">Chọn ảnh</label>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8 product-info-column">
+                    <div class="col-md-9 product-info-column">
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -209,12 +209,54 @@
             instanceReady: function(event) {
                 var editor = event.editor;
                 var body = editor.document.getBody();
-                editor.document.appendStyleText('table { border-collapse: collapse; } table td, table th { border: 1px solid #555 !important; }');
+                editor.document.appendStyleText('table { border-collapse: collapse; } table td, table th { border: 1px solid #555 !important; } table th { white-space: nowrap; text-align: center; } @media screen and (max-width: 767px) { body { min-width: 1200px !important; overflow-x: auto !important; } table { width: 1200px !important; min-width: 1200px !important; max-width: none !important; table-layout: fixed !important; } table td, table th { min-width: 100px; } }');
+                function sizeTranslationTableForViewport() {
+                    var tables = editor.document.getBody().find('table');
+                    var isMobile = window.matchMedia('(max-width: 767px)').matches;
+                    for (var tableIndex = 0; tableIndex < tables.count(); tableIndex++) {
+                        var translationTable = tables.getItem(tableIndex);
+                        translationTable.setStyle('table-layout', 'fixed');
+                        translationTable.setStyle('border-collapse', 'collapse');
+                        translationTable.setStyle('width', isMobile ? '1200px' : '100%');
+                        translationTable.setStyle('min-width', isMobile ? '1200px' : '0');
+                        if (translationTable.$.rows.length && translationTable.$.rows[0].cells.length === 12) {
+                            for (var headingIndex = 0; headingIndex < 12; headingIndex++) {
+                                var headingCell = translationTable.$.rows[0].cells[headingIndex];
+                                var headingText = headingCell.textContent.trim().replace(/^\d+\s+/, '');
+                                if (headingCell.tagName.toLowerCase() === 'th' && (headingText === 'Chữ Hán' || headingText === 'Quan hỏa')) {
+                                    headingCell.textContent = (6 - Math.floor(headingIndex / 2)) + ' ' + headingText;
+                                }
+                            }
+                        }
+                        for (var rowIndex = 0; rowIndex < translationTable.$.rows.length; rowIndex++) {
+                            var cells = translationTable.$.rows[rowIndex].cells;
+                            for (var cellIndex = 0; cellIndex < cells.length; cellIndex++) {
+                                cells[cellIndex].style.width = isMobile ? '100px' : (100 / 12) + '%';
+                                cells[cellIndex].style.minWidth = isMobile ? '100px' : '0';
+                                if (cells[cellIndex].tagName.toLowerCase() === 'th') {
+                                    cells[cellIndex].style.whiteSpace = isMobile ? 'nowrap' : 'normal';
+                                    cells[cellIndex].style.fontSize = '12px';
+                                    cells[cellIndex].style.lineHeight = '1.15';
+                                    cells[cellIndex].style.padding = '5px 2px';
+                                    cells[cellIndex].style.overflowWrap = 'anywhere';
+                                }
+                            }
+                        }
+                    }
+                    body.setStyle('min-width', isMobile ? '1200px' : '0');
+                    body.setStyle('overflow-x', 'auto');
+                }
+                editor.on('dataReady', sizeTranslationTableForViewport);
+                window.addEventListener('resize', sizeTranslationTableForViewport);
+                editor.on('destroy', function() {
+                    window.removeEventListener('resize', sizeTranslationTableForViewport);
+                });
                 if (!body.getText().trim() && !body.findOne('table')) {
                     var table = '<table border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse;width:100%;table-layout:fixed;border:1px solid #555">';
                     table += '<thead><tr>';
                     for (var headingColumn = 0; headingColumn < 12; headingColumn++) {
-                        var heading = headingColumn % 2 === 0 ? 'Chữ Hán' : 'Quan hỏa';
+                        var headingNumber = 6 - Math.floor(headingColumn / 2);
+                        var heading = headingNumber + ' ' + (headingColumn % 2 === 0 ? 'Chữ Hán' : 'Quan hỏa');
                         table += '<th scope="col" style="width:8.33%;height:40px;border:1px solid #555;text-align:center;font-weight:bold">' + heading + '</th>';
                     }
                     table += '</tr></thead><tbody>';
@@ -226,8 +268,9 @@
                         table += '</tr>';
                     }
                     table += '</table><p>&nbsp;</p>';
-                    editor.setData(table);
+                    editor.setData(table, sizeTranslationTableForViewport);
                 }
+                window.setTimeout(sizeTranslationTableForViewport, 0);
             }
         },
     });
