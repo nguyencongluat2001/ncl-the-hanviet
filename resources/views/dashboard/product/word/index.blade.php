@@ -52,6 +52,10 @@
                 </table>
             </div>
         </div>
+        <div class="modal-footer word-list-footer">
+            <span>{{ $details->count() }} mục{{ $search !== '' ? ' phù hợp' : '' }}</span>
+            <button type="button" class="btn btn-sm btn-light" onclick="JS_Product.closeWords()">Đóng</button>
+        </div>
     </div>
 </div>
 
@@ -62,17 +66,19 @@
 .word-list-modal .modal-header { flex: 0 0 auto; padding: 10px 16px; border-bottom: 1px solid #edf0f4; }
 .word-list-modal .modal-title { color: #263754; font-size: 17px; font-weight: 650; }
 .word-list-modal .modal-header .btn { min-width: 34px; min-height: 32px; padding: 4px 9px; }
-.word-list-modal .modal-body { min-height: 0; overflow: hidden; padding: 10px 14px 12px; }
+.word-list-modal .modal-body { min-height: 0; overflow-y: auto; padding: 10px 14px 12px; }
+.word-list-footer { flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; border-top: 1px solid #edf0f4; color: #64748b; font-size: 13px; }
+.word-list-footer .btn { min-width: 64px; border-radius: 7px; }
 .word-list-modal .btn-success { border-radius: 8px; padding: 6px 11px; }
     .word-list-toolbar { gap: 7px; }
 .word-list-modal .modal-body > .d-flex { margin-bottom: 7px !important; }
 .word-filter-form { display: grid; grid-template-columns: 135px minmax(180px, 1fr) 38px; gap: 6px; max-width: 500px; margin: 0 0 8px auto; }
 .word-filter-form .form-control { min-width: 0; height: 36px; padding: 5px 9px; border-color: #e2e8f0; border-radius: 8px; font-size: 14px; }
 .word-search-button { height: 36px; margin: 0; padding: 0; border-radius: 8px; font-size: 14px; }
-    .word-list-modal .table-responsive { overflow: visible; }
+.word-list-modal .table-responsive { overflow: visible; }
     .word-list-table { display: block; width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; border: 1px solid #e6ebf1; border-radius: 12px; overflow: hidden; }
     .word-list-table thead { display: table; width: 100%; table-layout: fixed; }
-.word-list-table tbody { display: block; width: 100%; max-height: min(70vh, 720px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; -webkit-overflow-scrolling: touch; }
+.word-list-table tbody { display: block; width: 100%; max-height: none; overflow: visible; }
     .word-list-table tbody tr { display: table; width: 100%; table-layout: fixed; }
     .word-list-table th, .word-list-table td { vertical-align: middle; overflow-wrap: anywhere; }
     .word-list-table thead th { padding: 12px 8px; background: #f3f6fa; color: #53627a; border: 0; border-bottom: 1px solid #e6ebf1; font-size: 14px; font-weight: 650; }
@@ -96,13 +102,14 @@
         .word-list-modal .modal-header { padding: 7px 10px; }
         .word-list-modal .modal-title { font-size: 14px; }
         .word-list-modal .modal-header .btn { min-width: 30px; min-height: 28px; padding: 2px 7px; }
+        .word-list-footer { padding: 7px 10px calc(7px + env(safe-area-inset-bottom)); }
         .word-list-modal .modal-body { padding: 7px 8px calc(18px + env(safe-area-inset-bottom)); background: #f8fafc; }
         .word-list-modal .modal-body > .d-flex { margin-bottom: 5px !important; }
         .word-list-modal .btn-success { padding: 5px 9px; font-size: 11px; }
         .word-filter-form { grid-template-columns: 92px minmax(0, 1fr) 32px; gap: 4px; width: 100%; max-width: none; margin-bottom: 6px; }
         .word-filter-form .form-control { height: 36px; padding: 5px 7px; font-size: 14px; }
         .word-search-button { width: 36px; height: 36px; font-size: 14px; }
-        .word-list-table tbody { max-height: calc(94dvh - 170px); padding-bottom: calc(32px + env(safe-area-inset-bottom)); scroll-padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
+        .word-list-table tbody { max-height: none; padding-bottom: 0; scroll-padding-bottom: 0; }
         .word-list-table { display: block; border: 0; border-radius: 0; margin-bottom: 0; }
         .word-list-table thead { display: block; width: 100%; margin-bottom: 7px; }
         .word-list-table thead tr {
@@ -133,7 +140,7 @@
         .word-list-table thead th:last-child { border-right: 0; }
         .word-desktop-heading { display: none; }
         .word-mobile-heading { display: inline; }
-        .word-list-table tbody { display: block; width: 100%; max-height: 62vh; padding-bottom: calc(32px + env(safe-area-inset-bottom)); scroll-padding-bottom: calc(32px + env(safe-area-inset-bottom)); overflow-x: hidden; overflow-y: auto; }
+        .word-list-table tbody { display: block; width: 100%; max-height: none; padding-bottom: 0; scroll-padding-bottom: 0; overflow: visible; }
         .word-list-table tbody .word-data-row {
             display: grid;
             grid-template-columns: 38px repeat(3, minmax(0, 1fr)) 42px;

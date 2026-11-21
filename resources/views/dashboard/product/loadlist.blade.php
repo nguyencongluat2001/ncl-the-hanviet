@@ -35,11 +35,11 @@ use Modules\System\Dashboard\Blog\Models\BlogImagesModel;
                         <button onclick="JS_Product.wordsList('{{ $data['id'] }}')" class="btn btn-light product-row-action" type="button" title="Quản lý chữ của sản phẩm">
                             <i style="color:#344767" class="far fa-list-alt"></i>
                         </button>
-                         <button onclick="JS_Product.previewProductImage(this)" data-image="{{ asset('file-image-client/product/' . ($data['image'] ?? '')) }}" data-title="{{ $data['name'] }}" class="btn btn-light product-row-action" type="button" title="Xem ảnh sản phẩm" aria-label="Xem ảnh sản phẩm">
-                              <i style="" class="far fa-eye"></i>
-                        </button>
                         <button onclick="JS_Product.editOne('form#frmProduct_index', '{{ $data['id'] }}')" class="btn btn-light product-row-action" type="button" title="Sửa sản phẩm">
                             <i class="far fa-edit"></i>
+                        </button>
+                         <button onclick="JS_Product.previewProductImage(this)" data-image="{{ asset('file-image-client/product/' . ($data['image'] ?? '')) }}" data-title="{{ $data['name'] }}" class="btn btn-light product-row-action" type="button" title="Xem ảnh sản phẩm" aria-label="Xem ảnh sản phẩm">
+                              <i style="" class="far fa-eye"></i>
                         </button>
                         <button onclick="JS_Product.deleteOne('form#frmProduct_index', '{{ $data['id'] }}')" class="btn btn-light product-row-action" type="button" title="Xóa sản phẩm">
                             <i class="far fa-trash-alt"></i>
