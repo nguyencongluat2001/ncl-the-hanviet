@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-xl">
+<div class="modal-dialog modal-xl product-edit-dialog">
     <div class="modal-content card">
         <div class="modal-header">
             <h5 class="modal-title">Cập nhật bài viết</h5>
@@ -59,7 +59,7 @@
                         <div class="row form-group" id="div_hinhthucgiai">
                             <span class="control-label">Trạng thái</span><br>
                             <div>
-                                <input type="checkbox" name="status" id="status" {{(isset($data['status']) && $data['status'] == '1') ? 'checked' : ''}} />
+                                <input type="checkbox" name="status" id="status" {{(empty($data['id']) || (isset($data['status']) && $data['status'] == '1')) ? 'checked' : ''}} />
                                 <label for="status">Hoạt động</label> <br>
                             </div>
                         </div>
@@ -97,6 +97,12 @@
     .product-image-zoom img { display: block; width: 100%; max-width: none; height: auto; object-fit: contain; }
     .product-image-zoom img[hidden] { display: none; }
     .product-edit-footer { grid-column: 1 / -1; width: 100%; justify-content: flex-end; gap: 8px; padding-bottom: 0; }
+    @media (min-width: 992px) {
+        .product-edit-dialog { width: 100vw; max-width: none; height: 100vh; margin: 0; }
+        .product-edit-dialog .modal-content { display: flex; flex-direction: column; width: 100%; height: 100vh; border-radius: 0; }
+        .product-edit-dialog .card-body { flex: 1 1 auto; min-height: 0; overflow: auto; }
+        .product-edit-dialog .product-edit-layout .cke_contents { min-height: calc(100vh - 460px); }
+    }
     .product-edit-layout .cke_contents { min-height: 420px; }
     @media (max-width: 767.98px) {
         .product-image-panel { position: static; margin-bottom: 18px; }
